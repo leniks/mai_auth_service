@@ -1,22 +1,17 @@
 from fastapi import FastAPI
 from typing import Optional
-from schemas.User_schema import User, RegisterUser, AuthUser
+from app.schemas.User_schema import User, RegisterUser, AuthUser
+from app.routers.users_router import router as users_router
 
 app = FastAPI()
 
+app.include_router(users_router)
 
 @app.get("/")
 def home_page():
     return {"message": "bro like ahhh service"}
 
-@app.get("/get_by_id/{id}")
-def get_by_id_path(id: int) -> User:
-    pass
-
-@app.get("/get_by_id_param")
-def get_by_id_param(user_id: Optional[str] = None) -> User:
-    pass
-
 @app.post("/register/")
 def register_user_handler(user: RegisterUser):
     pass
+

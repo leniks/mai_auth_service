@@ -12,11 +12,10 @@ class RegisterUser(BaseModel):
 
     username: str = Field(...)
     password: str = Field(..., min_length=6)
-    mail: EmailStr = Field(...)
+    user_mail: EmailStr = Field(...)
 
 class User(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
     username: str = Field(...)
-    password: str = Field(..., min_length=6)
-    mail: EmailStr = Field(...)
+    user_mail: EmailStr = Field(...)
