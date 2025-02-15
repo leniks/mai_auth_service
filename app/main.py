@@ -9,9 +9,10 @@ app.include_router(users_router)
 
 @app.get("/")
 def home_page():
+    print('123')
     return {"message": "bro like ahhh service"}
 
-@app.post("/register/")
-def register_user_handler(user: RegisterUser):
-    pass
+# @app.post("/register/")
+# def register_user_handler(user: RegisterUser):
+#     pass
 
