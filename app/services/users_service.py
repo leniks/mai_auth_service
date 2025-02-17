@@ -23,6 +23,14 @@ class UsersService:
             return users
 
     @classmethod
+    async def get_user_by_username(cls, username):
+        async with async_session_maker() as session:
+            query = select(User).filter_by(username=username)
+            result = await session.execute(query)
+            users = result.scalars().one_or_none()
+            return users
+
+    @classmethod
     async def add_user(cls, **values):
         async with async_session_maker() as session:
             async with session.begin():
