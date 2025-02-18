@@ -43,3 +43,20 @@ class UsersService:
                     await session.rollback()
                     raise e
                 return new_instance
+
+    @classmethod
+    async def make_admin(cls, id):
+        async with async_session_maker() as session:
+            async with session.begin():
+                query = select(User).filter_by(id=id)
+                result = await session.execute(query)
+                user = result.scalars().one_or_none()
+
+                if user.is_admin is False:
+                    user.is_admin = True
+                    session.add(user)
+                    await session.commit()  # Сохраняем изменения в базе данных
+                    return True
+
+                else:
+                    return False
