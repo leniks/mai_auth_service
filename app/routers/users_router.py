@@ -24,13 +24,6 @@ async def get_all_users(user_data: User = Depends(get_current_user)) -> Optional
                         detail="Недостаточно прав для выполнения действия")
 
 
-@router.get("/{id}", summary="Получиить пользователя по id")
-async def get_user_by_id(id: int) -> Optional[User] | str:
-    result = await UsersService.get_user_by_id(id)
-    if result is None:
-        return f'Пользователь с id {id} не найден'
-    return result
-
 @router.post("/register", summary="Добавить пользователя")
 async def add_user(user_add: RegisterUser)  -> dict:
     user = await UsersService.get_user_by_username(username=user_add.username)
@@ -66,7 +59,7 @@ async def auth_user(response: Response, user_data: AuthUser, producer = Depends(
 
     return {'access_token': access_token}
 
-@router.get("/me", summary="Информация о текущем пользователе")
+@router.get("/get_me", summary="Информация о текущем пользователе")
 async def get_me(user_data: User = Depends(get_current_user)) -> User:
     # print(user_data)
     return user_data
@@ -83,3 +76,11 @@ async def make_admin(user_data: User = Depends(get_current_user)) -> dict:
     if result:
         return {'message': 'Пользователь успешно назначен администратором'}
     return {'message': 'Пользователь уже является администратором'}
+
+
+@router.get("/{id}", summary="Получиить пользователя по id")
+async def get_user_by_id(id: int) -> Optional[User] | str:
+    result = await UsersService.get_user_by_id(id)
+    if result is None:
+        return f'Пользователь с id {id} не найден'
+    return result
