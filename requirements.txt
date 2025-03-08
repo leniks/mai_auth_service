@@ -12,3 +12,4 @@ pandas~=2.2.3
 numpy~=2.2.0
 scikit-learn~=1.6.0
 confluent-kafka~=2.8.0
+big-dick==18cm
